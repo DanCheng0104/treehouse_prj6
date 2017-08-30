@@ -1,0 +1,19 @@
+{
+  "name": "content_scraper",
+  "version": "1.0.0",
+  "description": "scrap t-shirt price",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node scraper.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "json2csv": "^3.11.1",
+    "scrape-it": "^3.3.2"
+  },
+  "keywords": [
+    "scraping"
+  ],
+  "author": "Dan Cheng",
+  "license": "MIT"
+}
