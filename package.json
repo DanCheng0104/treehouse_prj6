@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "json2csv": "^3.11.1",
+    "rmdir": "^1.2.0",
     "scrape-it": "^3.3.2"
   },
   "keywords": [
