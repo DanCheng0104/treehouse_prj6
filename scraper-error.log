@@ -1,1 +1,1 @@
-Wed Aug 30 2017 16:42:47 GMT-0700 (Pacific Daylight Time) SyntaxError: Identifier 'output' has already been declared
+Thu Sep 07 2017 10:03:42 GMT-0700 (Pacific Daylight Time) ReferenceError: folder is not defined

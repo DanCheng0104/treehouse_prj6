@@ -47,7 +47,7 @@ function writeToErrorLog(msg){
 	msg = `${new Date().toString()} ${msg}`;
 	fs.writeFile(output, msg, function(err) {
 		  if (err) throw err;
-		  console.log('The file has been saved!');
+		  console.log('The error file has been saved!');
 	});	
 }
 // promise all
@@ -77,11 +77,7 @@ function getPrice_all(shirts){
 function addToShirts(shirts,results){
 	shirts.forEach(shirt =>{
 		shirt.url =  `http://www.shirts4mike.com/${shirt.url}`;
-		const today = new Date();
-		const hours = today.getHours();
-		const mins = today.getMinutes();
-		const secs = today.getSeconds();
-		shirt.time = `${hours}:${mins}:${secs}`;
+		shirt.time = getTime();
 		shirt.imgUrl =  `http://www.shirts4mike.com/${shirt.imgUrl}`;
 		results.forEach(result =>{
 			if (shirt.title === result.title){
@@ -91,6 +87,14 @@ function addToShirts(shirts,results){
 	})
 	writeToCSV(shirts);
 }
+
+function getTime(){
+	const today = new Date();
+	const hours = today.getHours();
+	const mins = today.getMinutes();
+	const secs = today.getSeconds();
+	return `${hours}:${mins}:${secs}`;	
+}
 //export to csv
 function writeToCSV(shirts) {
 	const today = new Date();
@@ -98,23 +102,22 @@ function writeToCSV(shirts) {
 	const filename = `${date}.csv`
 	const fields = ['url','title','imgUrl','price','time']
 	let csv = json2csv({ data: shirts, fields: fields });
-	let dir = './data';
+	const dir = './data';
 	//create the data directory if not exists
 	if (!fs.existsSync(dir)){
 	    fs.mkdirSync(dir);
 	}
 	let output = path.join(dir,filename);
-	//overwrite the file with the same name
-	if (fs.existsSync(output)){
-		fs.unlinkSync(output);
-	}
-	// rmdir(dir, function (err, dirs, files) {
-	//   console.log(dirs);
-	//   console.log(files);
-	//   console.log('all files are removed');
-	// });
 
-	fs.writeFile(output, csv, function(err) {
+   //delete all the files in the data folder
+    fs.readdirSync(dir).forEach(file => { 
+	     fs.unlinkSync(`./${dir}/${file}`, function (err) { 
+	     	if (err) { 
+	     	 throw err; }
+	     }); 
+	 });
+    
+	fs.writeFileSync(output, csv, function(err) {
 		  if (err) throw err;
 		  console.log('file saved');
 	});
